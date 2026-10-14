@@ -1,0 +1,27 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": { "text": "Overall Proportion of Travel Purpose Across Australia" },
+  "width": 450,
+  "height": 350,
+  "data": {
+    "url": "data/tourism.csv"
+  },
+  "mark": { "type": "arc", "innerRadius": 80, "tooltip": true },
+  "encoding": {
+    "theta": {
+      "aggregate": "sum",
+      "field": "Trips",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "Purpose",
+      "type": "nominal",
+      "title": "Travel Purpose",
+      "scale": { "scheme": "tableau10" }
+    },
+    "tooltip": [
+      { "field": "Purpose", "type": "nominal", "title": "Purpose" },
+      { "aggregate": "sum", "field": "Trips", "type": "quantitative", "title": "Total Trips", "format": ",.0f" }
+    ]
+  }
+}

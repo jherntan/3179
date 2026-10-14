@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": { "text": "National Parks Grouped by Primary Recreational Activity" },
+  "width": 600,
+  "height": 300,
+  "data": {
+    "url": "data/australian_national_parks.csv"
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "annual_visitors",
+      "type": "quantitative",
+      "aggregate": "sum",
+      "title": "Total Combined Visitors"
+    },
+    "y": {
+      "field": "primary_activity",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Primary Activity"
+    },
+    "color": {
+      "field": "primary_activity",
+      "type": "nominal",
+      "legend": null
+    },
+    "tooltip": [
+      { "field": "primary_activity", "type": "nominal", "title": "Activity" },
+      { "field": "annual_visitors", "aggregate": "sum", "type": "quantitative", "title": "Total Visitors", "format": "," }
+    ]
+  }
+}

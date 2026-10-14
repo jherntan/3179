@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": { "text": "Quarterly Tourism Trips Trend by State" },
+  "width": 600,
+  "height": 350,
+  "data": {
+    "url": "data/tourism.csv"
+  },
+  "mark": {
+    "type": "line",
+    "point": true
+  },
+  "encoding": {
+    "x": {
+      "field": "Quarter",
+      "type": "temporal",
+      "title": "Quarter / Time Period"
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "Trips",
+      "type": "quantitative",
+      "title": "Total Trips (Thousands)"
+    },
+    "color": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State"
+    },
+    "tooltip": [
+      { "field": "Quarter", "type": "temporal", "title": "Date", "format": "%b %Y" },
+      { "field": "State", "type": "nominal", "title": "State" },
+      { "aggregate": "sum", "field": "Trips", "type": "quantitative", "title": "Total Trips", "format": ",.0f" }
+    ]
+  }
+}
