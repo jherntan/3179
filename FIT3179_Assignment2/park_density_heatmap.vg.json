@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Spatial Heatmap of National Park Visitor Density"
+  },
+  "width": 600,
+  "height": 400,
+  "projection": {
+    "type": "mercator",
+    "center": [134.0, -28.0],
+    "scale": 680
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/world-110m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f1f3f5",
+        "stroke": "#ced4da",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "data/australian_national_parks.csv"
+      },
+      "mark": {
+        "type": "square",
+        "size": 1800,
+        "opacity": 0.55,
+        "stroke": null
+      },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "color": {
+          "field": "annual_visitors",
+          "type": "quantitative",
+          "title": "Visitor Density Intensity",
+          "scale": { "scheme": "inferno" }
+        },
+        "tooltip": [
+          { "field": "park_name", "type": "nominal", "title": "Park" },
+          { "field": "annual_visitors", "type": "quantitative", "title": "Annual Visitors", "format": "," }
+        ]
+      }
+    }
+  ]
+}

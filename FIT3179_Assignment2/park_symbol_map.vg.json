@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Australian National Parks Visitor Density (2024)",
+    "subtitle": "Bubble size represents total annual visitors per park"
+  },
+  "width": 600,
+  "height": 400,
+  "projection": {
+    "type": "mercator",
+    "center": [134.0, -28.0],
+    "scale": 680
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/world-110m.json",
+        "format": { "type": "topojson", "feature": "countries" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e9ecef",
+        "stroke": "#adb5bd",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "data/australian_national_parks.csv"
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.85,
+        "stroke": "#000",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "size": {
+          "field": "annual_visitors",
+          "type": "quantitative",
+          "title": "Annual Visitors",
+          "scale": { "range": [150, 1200] }
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State/Territory",
+          "scale": { "scheme": "category10" }
+        },
+        "tooltip": [
+          { "field": "park_name", "type": "nominal", "title": "National Park" },
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "annual_visitors", "type": "quantitative", "title": "Annual Visitors", "format": "," },
+          { "field": "primary_activity", "type": "nominal", "title": "Primary Activity" }
+        ]
+      }
+    }
+  ]
+}

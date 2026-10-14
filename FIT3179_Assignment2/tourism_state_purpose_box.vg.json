@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": { "text": "Distribution of Tourism Trip Volumes by Travel Purpose" },
+  "width": 600,
+  "height": 350,
+  "data": {
+    "url": "data/tourism.csv"
+  },
+  "mark": {
+    "type": "boxplot",
+    "extent": "min-max",
+    "size": 25
+  },
+  "encoding": {
+    "x": {
+      "field": "Purpose",
+      "type": "nominal",
+      "title": "Travel Purpose"
+    },
+    "y": {
+      "field": "Trips",
+      "type": "quantitative",
+      "title": "Quarterly Trips (Thousands)"
+    },
+    "color": {
+      "field": "Purpose",
+      "type": "nominal",
+      "legend": null
+    },
+    "tooltip": [
+      { "field": "Purpose", "type": "nominal", "title": "Purpose" },
+      { "field": "Trips", "type": "quantitative", "title": "Quarterly Value", "format": ",.1f" }
+    ]
+  }
+}
