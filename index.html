@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Australian National Parks & Tourism Trends</title>
+  
+  <!-- Vega, Vega-Lite, and Vega-Embed Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    header {
+      background-color: #1b4332;
+      color: #ffffff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.2rem;
+    }
+
+    .metadata {
+      font-size: 1rem;
+      color: #d8f3dc;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      background: white;
+      padding: 25px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      color: #2d6a4f;
+      font-size: 1.4rem;
+    }
+
+    .section p {
+      color: #495057;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .chart-container {
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    footer {
+      background-color: #212529;
+      color: #adb5bd;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: #74c69d;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Australian National Parks & Tourism Trends</h1>
+    <div class="metadata">
+      <strong>Author:</strong> Tan Jia Hern &nbsp;|&nbsp; 
+      <strong>Student ID:</strong> 34477942 &nbsp;|&nbsp; 
+      <strong>Unit:</strong> FIT3179 Data Visualisation 2
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>1. Geographic Distribution of National Parks</h2>
+      <p>Explore Australia's top national parks by location and annual visitor density using a proportional symbol map.</p>
+      <div id="vis1_map" class="chart-container"></div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>2. Regional Tourism & Visitor Purpose</h2>
+      <p>Examining tourism trip volumes across Australian states and visitor intentions using stacked bars.</p>
+      <div id="vis2_bar" class="chart-container"></div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>3. Quarterly Visitor Trends Over Time</h2>
+      <p>Tracking long-term fluctuations and seasonal tourist patterns across states over quarterly intervals.</p>
+      <div id="vis3_line" class="chart-container"></div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>4. Relative State Tourism Contributions Over Time</h2>
+      <p>Normalized area chart displaying how each state's proportional share of national tourism shifts seasonally.</p>
+      <div id="vis4_area" class="chart-container"></div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>5. Relationship Between Park Size and Popularity</h2>
+      <p>Logarithmic scatter plot comparing total land area (hectares) against visitor attendance.</p>
+      <div id="vis5_scatter" class="chart-container"></div>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="section">
+      <h2>6. Most Popular Park Activities</h2>
+      <p>Total visitation volume broken down by primary recreational offerings.</p>
+      <div id="vis6_activity" class="chart-container"></div>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="section">
+      <h2>7. State-Level Regional Tourism Distribution</h2>
+      <p>Regional distribution map visualizing visitor counts per location across Australian states.</p>
+      <div id="vis7_map2" class="chart-container"></div>
+    </div>
+
+    <!-- Section 8 -->
+    <div class="section">
+      <h2>8. National Park Visitation Density Heatmap</h2>
+      <p>Geospatial heatmap identifying high-traffic national park visitor density clusters.</p>
+      <div id="vis8_map3" class="chart-container"></div>
+    </div>
+
+    <!-- Section 9 -->
+    <div class="section">
+      <h2>9. Overall Breakdown of Travel Purposes</h2>
+      <p>Radial donut chart highlighting primary motivations for domestic travel across Australia.</p>
+      <div id="vis9_donut" class="chart-container"></div>
+    </div>
+
+    <!-- Section 10 -->
+    <div class="section">
+      <h2>10. Travel Purpose Volume Distributions</h2>
+      <p>Statistical box plot showing distribution spread and median quarterly trip volumes per travel purpose.</p>
+      <div id="vis10_box" class="chart-container"></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>
+      This visualization page was created for <strong>FIT3179 Data Visualisation Assignment 2</strong> by <strong>Tan Jia Hern</strong> (34477942).
+    </p>
+    <p>
+      <strong>Data Sources:</strong><br>
+      1. <a href="https://www.kaggle.com/datasets/luisblanche/quarterly-tourism-in-australia" target="_blank" rel="noopener">Kaggle (Luis Blanche)</a> — Quarterly Tourism in Australia Dataset (`tourism.csv`)<br>
+      2. <a href="https://www.environment.nsw.gov.au/" target="_blank" rel="noopener">NSW Environment and Heritage / NPWS</a> — Australian National Parks Dataset (`australian_national_parks.csv`)
+    </p>
+  </footer>
+
+  <!-- Vega-Lite Embedding Script -->
+  <script type="text/javascript">
+    var vg_1 = "park_symbol_map.vg.json";
+    var vg_2 = "tourism_purpose_bar.vg.json";
+    var vg_3 = "tourism_trend_line.vg.json";
+    var vg_4 = "tourism_area_chart.vg.json";
+    var vg_5 = "park_scatter_plot.vg.json";
+    var vg_6 = "park_activities_bar.vg.json";
+    var vg_7 = "state_choropleth_map.vg.json";
+    var vg_8 = "park_density_heatmap.vg.json";
+    var vg_9 = "tourism_donut_chart.vg.json";
+    var vg_10 = "tourism_state_purpose_box.vg.json";
+
+    vegaEmbed("#vis1_map", vg_1).catch(console.error);
+    vegaEmbed("#vis2_bar", vg_2).catch(console.error);
+    vegaEmbed("#vis3_line", vg_3).catch(console.error);
+    vegaEmbed("#vis4_area", vg_4).catch(console.error);
+    vegaEmbed("#vis5_scatter", vg_5).catch(console.error);
+    vegaEmbed("#vis6_activity", vg_6).catch(console.error);
+    vegaEmbed("#vis7_map2", vg_7).catch(console.error);
+    vegaEmbed("#vis8_map3", vg_8).catch(console.error);
+    vegaEmbed("#vis9_donut", vg_9).catch(console.error);
+    vegaEmbed("#vis10_box", vg_10).catch(console.error);
+  </script>
+
+</body>
+</html>
